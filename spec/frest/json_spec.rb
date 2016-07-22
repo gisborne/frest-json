@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'frest/core'
 
 describe Frest::Json do
   n = Frest::Json
@@ -12,12 +13,16 @@ describe Frest::Json do
     it "can delete an entire hash and it's gone" do
       n.set id: '3ff7bacf-1511-4709-b84f-2427e91b01e8', content: {a: 1}
       n.delete id: '3ff7bacf-1511-4709-b84f-2427e91b01e8'
-      expect(n.get(id: '3ff7bacf-1511-4709-b84f-2427e91b01e8')).to be_nil
+      expect(n.get(id: '3ff7bacf-1511-4709-b84f-2427e91b01e8')).to eq(Frest::Core::NotFound)
     end
 
     it "can insert and retrieve a nested hash" do
       n.set id: 'aaabee95-5aaf-4c3a-bfd6-49c8d1bae0df', content: {a: 1, b: {c: 2}}
       expect(n.get(id: 'aaabee95-5aaf-4c3a-bfd6-49c8d1bae0df')).to match({'a' => 1, 'b' => {'c' => 2}})
+    end
+
+    it 'receives Frest::Core::NotFound when a value doesn''t exist' do
+      expect(n.get id:'de7c2cd4-daca-4e32-ad33-0a7bcadb9840').to eq(Frest::Core::NotFound)
     end
   end
 end

@@ -1,4 +1,5 @@
 require "frest/json/version"
+require 'frest/core'
 require 'sqlite3'
 require 'securerandom'
 require 'json'
@@ -80,7 +81,7 @@ module Frest
       if result
         JSON.parse(result[0])
       else
-        nil
+        Frest::Core::NotFound
       end
     end
 

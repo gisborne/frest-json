@@ -2,10 +2,21 @@ module Frest
   module Relation
     def create_relation(
       name:,
-      fields: []
+      fields: [],
+      keys: [:id]
     )
 
+      sql = %{
+        CREATE TABLE
+          #{name} (
+            #{fields.map{|k, v| field_create_string(name: k, type: v, keys: keys)} * ",\n"},
+            PRIMARY KEY(#{keys * ', '})
+          )
+          WITHOUT ROWID
+      }
 
+      result = execute(sql: sql)
+      result
     end
 
     def insert_relation(
@@ -37,6 +48,18 @@ module Frest
       where: {}
     )
 
+    end
+
+
+
+    private
+
+    def field_create_string(
+      name:,
+      type:,
+      keys:
+    )
+      "#{name} #{type}#{keys.include?(name) ? ' NOT NULL' : ''}"
     end
   end
 end

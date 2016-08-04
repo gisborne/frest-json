@@ -7,17 +7,16 @@ describe Frest::Json do
   describe "CRUD on relations" do
     it "can create a relation" do
       n.create_relation(
-           name:    't1',
-           fields:  {
-               id:          :uuid,
-               email:       :text,
-               height_m:    :real,
-               stuff:       :blob,
-               dob:         :date,
-               time_birth:  :time,
-               cars:        :integer
-           },
-           keys: [:id]
+        name:    't1',
+        fields:  {
+           id:          :uuid,
+           email:       :text,
+           height_m:    :real,
+           stuff:       :blob,
+           dob:         :date,
+           time_birth:  :time,
+           cars:        :integer
+        }
       )
     end
 
@@ -56,13 +55,13 @@ describe Frest::Json do
             where: {
                 id_eq: 'b3ae4f23-9f77-484d-82d6-f8ae6c101fc0'
             },
-          fields: [:dob, :timebirth]
+          fields: [:dob, :time_birth]
         )
       ).to eq(['2003-06-01', '16:40'])
     end
 
     it 'can update a value' do
-      n.update(
+      n.update_relation(
         name:    't1',
         where: {
           id_eq: '59f196ae-061f-40fc-a5b7-855896f3deb2'

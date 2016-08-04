@@ -22,6 +22,7 @@ module Frest
             created date DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY(id, parent)
           )
+            WITHOUT ROWID
         }
       )
 
@@ -37,6 +38,7 @@ module Frest
 
               PRIMARY KEY(id, branch_id, created)
             )
+              WITHOUT ROWID
         }
       )
 
@@ -51,6 +53,7 @@ module Frest
 
               PRIMARY KEY(id, branch_id)
           )
+              WITHOUT ROWID
         }
       )
 

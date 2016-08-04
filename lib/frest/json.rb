@@ -5,10 +5,12 @@ require 'securerandom'
 require 'json'
 
 require_relative 'tap_h'
+require_relative 'relation'
 
 module Frest
   module Json
     include TapH
+    include Frest::Relation
     include Defaults
 
     extend self

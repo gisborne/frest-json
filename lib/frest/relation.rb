@@ -9,7 +9,7 @@ module Frest
       keys << :id unless keys.include?(:id)
 
       sql = %{
-        CREATE TABLE
+        CREATE TABLE IF NOT EXISTS
           #{name} (
             #{fields.map { |k, v| field_create_string(name: k, type: v, keys: keys) } * ",\n"},
             PRIMARY KEY(#{keys * ', '})
